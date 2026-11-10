@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d17">
+<title>JARVIS ULTIMATE</title>
+<style>
+:root{--bg:#080d17;--panel:#101a2b;--panel2:#0c1422;--blue:#55b8ff;--cyan:#8de8ff;--text:#eaf5ff;--muted:#8ba2bc;--line:#1d3049}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -15%,#16365a 0,#080d17 45%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100dvh}
+.app{max-width:760px;margin:auto;padding:env(safe-area-inset-top) 15px calc(20px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 2px 12px}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border:1px solid #3b9bdb;border-radius:12px;display:grid;place-items:center;color:var(--cyan);box-shadow:0 0 20px #2389d755;font-size:21px}
+h1{font-size:17px;letter-spacing:2px;margin:0}.sub{font-size:10px;color:var(--muted);letter-spacing:1.6px;margin-top:4px}
+.status{font-size:11px;color:#8ee9bd;display:flex;align-items:center;gap:6px}.dot{width:7px;height:7px;background:#54e3a0;border-radius:50%;box-shadow:0 0 9px #54e3a0}
+.hero{text-align:center;padding:20px 0 22px}.orb{width:148px;height:148px;margin:0 auto 15px;border-radius:50%;position:relative;background:radial-gradient(circle at 35% 30%,#b8f6ff 0,#49baff 10%,#145eaa 34%,#07172e 68%);box-shadow:0 0 25px #2a9aff88,0 0 70px #167bdf44,inset 0 0 25px #8ceaff77;animation:float 4s ease-in-out infinite}
+.orb:before,.orb:after{content:"";position:absolute;inset:-10px;border:1px solid #58caff55;border-radius:50%;transform:rotateX(65deg)}.orb:after{inset:-18px;transform:rotateX(65deg) rotate(45deg);border-color:#58caff33}
+@keyframes float{50%{transform:translateY(-5px);filter:brightness(1.12)}}
+.hero h2{font-size:20px;margin:0 0 7px;font-weight:600}.hero p{font-size:13px;color:var(--muted);margin:0}
+.panel{background:linear-gradient(145deg,#111d30ee,#0b1422ee);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 12px 35px #0002}
+.panel-title{font-size:12px;letter-spacing:1.3px;color:#a9c8e6;margin-bottom:12px}
+textarea{width:100%;min-height:96px;resize:vertical;background:#08111e;border:1px solid #203650;border-radius:13px;padding:13px;color:var(--text);font:15px/1.5 inherit;outline:none}textarea:focus{border-color:#3e9edb;box-shadow:0 0 0 3px #2699dc18}
+.actions{display:flex;gap:9px;margin-top:10px}.btn{border:1px solid #2a4968;background:#14243a;color:#d9efff;border-radius:12px;padding:12px 14px;font-size:13px;font-weight:600;cursor:pointer}.btn.primary{flex:1;background:linear-gradient(135deg,#1678c5,#2455a5);border-color:#3a9de2;box-shadow:0 5px 20px #1279cb33}.btn:active{transform:scale(.98)}.btn.mic{min-width:48px;font-size:17px}
+.note{font-size:11px;line-height:1.5;color:#7892ad;margin:10px 2px 0}
+.result{display:none}.result.show{display:block}.result h3{font-size:14px;margin:0 0 10px}.steps{margin:0;padding-left:20px;color:#c8d9eb;font-size:13px;line-height:1.8}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.quick button{width:100%;text-align:left;min-height:62px}.quick .emoji{font-size:18px;display:block;margin-bottom:5px}.quick small{color:#9bb4cf;font-size:12px}
+.chatlog{display:flex;flex-direction:column;gap:9px}.bubble{padding:11px 13px;border-radius:13px;max-width:90%;font-size:13px;line-height:1.5;white-space:pre-wrap}.bubble.user{align-self:flex-end;background:#153d67;border:1px solid #245a8a}.bubble.jarvis{align-self:flex-start;background:#0b1727;border:1px solid #1c324b;color:#cde4f8}
+footer{text-align:center;color:#5d7895;font-size:10px;padding:10px 0 18px}
+.toast{position:fixed;bottom:calc(22px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#152a42;border:1px solid #3b77a8;border-radius:12px;padding:11px 15px;font-size:12px;display:none;z-index:10;max-width:90%;text-align:center}
+@media(min-width:600px){.hero{padding:30px}.orb{width:170px;height:170px}.quick{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="logo">✦</div><div><h1>JARVIS ULTIMATE</h1><div class="sub">PERSONAL AI ASSISTANT · V0.1</div></div></div><div class="status"><span class="dot"></span> ЛОКАЛЬНЫЙ ИНТЕРФЕЙС</div></header>
+<section class="hero"><div class="orb" aria-label="JARVIS"></div><h2>Добрый вечер.</h2><p>Я готов принять ваше поручение.</p></section>
+<section class="panel"><div class="panel-title">⌁ НОВОЕ ПОРУЧЕНИЕ</div>
+<textarea id="task" placeholder="Например: составь план на завтра, найди информацию, подготовь сообщение…"></textarea>
+<div class="actions"><button class="btn mic" id="mic" title="Голосовой ввод">🎙</button><button class="btn primary" id="run">✦ Разобрать задачу</button><button class="btn" id="clear">Очистить</button></div>
+<p class="note">Версия 0.1 пока формирует план и демонстрирует интерфейс. Реальное управление приложениями и подключение ИИ добавим следующим этапом.</p>
+</section>
+<section class="panel result" id="result"><h3>План выполнения</h3><ol class="steps" id="steps"></ol><div class="actions"><button class="btn primary" id="confirm">Подтвердить план</button><button class="btn" id="cancel">Отмена</button></div></section>
+<section class="panel"><div class="panel-title">БЫСТРЫЕ КОМАНДЫ</div><div class="quick">
+<button class="btn" data-task="Помоги спланировать мой день"><span class="emoji">◷</span><small>План дня</small></button>
+<button class="btn" data-task="Найди информацию по моей теме и кратко сравни варианты"><span class="emoji">⌕</span><small>Исследование</small></button>
+<button class="btn" data-task="Подготовь текст сообщения, но не отправляй его"><span class="emoji">✉</span><small>Подготовить сообщение</small></button>
+<button class="btn" data-task="Составь список дел и расставь приоритеты"><span class="emoji">☑</span><small>Список задач</small></button>
+</div></section>
+<section class="panel"><div class="panel-title">ЖУРНАЛ СЕАНСА</div><div class="chatlog" id="chat"><div class="bubble jarvis">JARVIS: интерфейс запущен. Напишите поручение, и я подготовлю план.</div></div></section>
+<footer>JARVIS ULTIMATE · Ваши введённые задачи сохраняются только в текущем сеансе этой страницы.</footer>
+</div><div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);let currentTask='';
+function toast(s){let t=$('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+function addBubble(text,type){let d=document.createElement('div');d.className='bubble '+type;d.textContent=text;$('chat').appendChild(d);d.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function planFor(task){
+ let t=task.toLowerCase(),steps=[];
+ if(/найди|поиск|исслед|сравн/.test(t))steps=['Уточнить ключевые критерии и ограничения','Найти подходящие источники и варианты','Сопоставить данные и проверить факты','Подготовить краткий вывод со ссылками'];
+ else if(/сообщен|письм|отправ/.test(t))steps=['Определить адресата и цель сообщения','Подготовить черновик в нужном тоне','Показать текст для проверки','Отправка возможна только после отдельного разрешения'];
+ else if(/план|день|список|дел/.test(t))steps=['Разбить запрос на конкретные действия','Определить приоритеты и сроки','Сформировать понятный план','Уточнить недостающие детали'];
+ else steps=['Разобрать поручение и определить результат','Разделить задачу на безопасные шаги','Подготовить необходимые инструменты и данные','Выполнить доступные действия и проверить результат','Отчитаться о выполнении'];
+ return steps;
+}
+$('run').onclick=()=>{
+ let task=$('task').value.trim();if(!task){toast('Сначала напишите поручение');$('task').focus();return}
+ currentTask=task;addBubble(task,'user');$('steps').innerHTML='';
+ planFor(task).forEach(s=>{let li=document.createElement('li');li.textContent=s;$('steps').appendChild(li)});
+ $('result').classList.add('show');addBubble('Подготовил предварительный план. Пока это демонстрационный режим без подключённого ИИ и выполнения действий.','jarvis');
+};
+$('confirm').onclick=()=>{addBubble('План принят. В версии 0.1 выполнение внешних действий ещё не подключено. Следующий этап — подключить ИИ и инструменты с системой разрешений.','jarvis');toast('План сохранён в журнале сеанса')};
+$('cancel').onclick=()=>{$('result').classList.remove('show');toast('План отменён')};
+$('clear').onclick=()=>{$('task').value='';$('result').classList.remove('show')};
+document.querySelectorAll('[data-task]').forEach(b=>b.onclick=()=>{$('task').value=b.dataset.task;$('task').focus()});
+const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+$('mic').onclick=()=>{if(!SpeechRecognition){toast('Голосовой ввод не поддерживается этим браузером');return}
+ let r=new SpeechRecognition();r.lang='ru-RU';r.interimResults=false;r.onresult=e=>$('task').value=e.results[0][0].transcript;r.onerror=()=>toast('Не удалось распознать речь');r.start();toast('Слушаю…')};
+</script></body></html>
