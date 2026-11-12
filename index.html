@@ -1,542 +1,127 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#07111f">
-<title>JARVIS ULTIMATE</title>
-
-<style>
-:root{
---bg:#07111f;
---panel:#101d30;
---blue:#39aaff;
---cyan:#8cecff;
---text:#eaf5ff;
---muted:#91a9c4;
---line:#203650;
-}
-*{box-sizing:border-box}
-body{
-margin:0;
-background:radial-gradient(circle at top,#17416b,#07111f 50%);
-color:var(--text);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-min-height:100vh;
-}
-.app{
-max-width:800px;
-margin:auto;
-padding:15px;
-padding-top:env(safe-area-inset-top);
-padding-bottom:30px;
-}
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-}
-.logo{
-width:40px;height:40px;
-border:1px solid #3289c9;
-border-radius:13px;
-display:grid;place-items:center;
-color:var(--cyan);
-font-size:22px;
-}
-.brand{display:flex;gap:10px;align-items:center}
-h1{font-size:16px;letter-spacing:2px;margin:0}
-.sub{font-size:10px;color:var(--muted);margin-top:4px}
-.status{font-size:10px;color:#62e6b0}
-.orb{
-width:145px;height:145px;
-margin:20px auto;
-border-radius:50%;
-background:radial-gradient(circle at 30% 30%,#d1ffff,#57caff 15%,#1767b4 40%,#07172e 70%);
-box-shadow:0 0 35px #2a9aff88,0 0 80px #167bdf44;
-animation:float 4s ease-in-out infinite;
-}
-@keyframes float{50%{transform:translateY(-6px)}}
-.hero{text-align:center;padding:15px}
-.hero h2{font-size:22px}
-.hero p{font-size:13px;color:var(--muted)}
-.panel{
-background:linear-gradient(145deg,#111f32,#0b1524);
-border:1px solid var(--line);
-border-radius:17px;
-padding:15px;
-margin-bottom:13px;
-}
-.title{
-font-size:11px;
-letter-spacing:1.3px;
-color:#a9c8e6;
-margin-bottom:12px;
-}
-textarea,input,select{
-width:100%;
-background:#071321;
-border:1px solid #203650;
-border-radius:11px;
-padding:12px;
-color:var(--text);
-font:inherit;
-outline:none;
-}
-textarea{min-height:95px;resize:vertical}
-.row{display:flex;gap:8px;margin-top:9px}
-button{
-background:#14253b;
-border:1px solid #294967;
-border-radius:11px;
-padding:11px 13px;
-color:white;
-font-size:12px;
-font-weight:600;
-cursor:pointer;
-}
-.primary{
-background:linear-gradient(135deg,#1678c5,#2455a5);
-border-color:#3a9de2;
-}
-.row .primary{flex:1}
-nav{
-display:flex;gap:6px;
-overflow-x:auto;
-padding:10px 0;
-}
-nav button{white-space:nowrap}
-nav button.active{background:#164777}
-.view{display:none}
-.view.active{display:block}
-.quick{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:8px;
-}
-.quick button{text-align:left}
-.quick small{display:block;color:#a4bfd9;margin-top:5px}
-.bubbles{display:flex;flex-direction:column;gap:8px}
-.bubble{
-padding:11px 13px;
-border-radius:13px;
-max-width:92%;
-font-size:13px;
-line-height:1.5;
-white-space:pre-wrap;
-overflow-wrap:anywhere;
-}
-.user{align-self:flex-end;background:#153d67}
-.jarvis{align-self:flex-start;background:#091626;border:1px solid #1c324b}
-.item{
-border:1px solid #1e354e;
-background:#0a1727;
-border-radius:12px;
-padding:12px;
-margin:8px 0;
-}
-.meta{font-size:11px;color:var(--muted);margin-top:5px}
-.actions{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
-.actions button{padding:7px 10px}
-footer{text-align:center;color:#5d7895;font-size:10px;padding:15px}
-.toast{
-position:fixed;bottom:20px;left:50%;
-transform:translateX(-50%);
-background:#152a42;border:1px solid #3b77a8;
-border-radius:12px;padding:11px 15px;
-display:none;z-index:10;font-size:12px;
-}
-@media(min-width:600px){
-.quick{grid-template-columns:repeat(4,1fr)}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>JARVIS ULTIMATE</title>
+  <style>
+    :root{color-scheme:dark;--bg:#05080d;--panel:#0b111a;--line:#172635;--blue:#43caff;--text:#eaf7ff;--muted:#8298aa}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 25%,#0b1b2b 0%,var(--bg) 55%);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100dvh}
+    button,input,textarea{font:inherit}button{cursor:pointer}
+    .app{max-width:760px;margin:auto;min-height:100dvh;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom)}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 4px}
+    .brand{letter-spacing:.22em;font-weight:700;color:#dff7ff}.status{font-size:12px;color:var(--muted)}
+    .tabs{display:flex;gap:8px;background:#08111a;border:1px solid var(--line);border-radius:14px;padding:5px}
+    .tab{flex:1;border:0;border-radius:10px;padding:12px;background:transparent;color:var(--muted)}
+    .tab.active{background:#102536;color:var(--blue);box-shadow:inset 0 0 0 1px #1d4058}
+    .view{display:none;flex:1;min-height:0}.view.active{display:flex;flex-direction:column}
+    .home{align-items:center;justify-content:center;text-align:center;gap:18px;padding:35px 0}
+    .orb-wrap{width:min(65vw,270px);aspect-ratio:1;display:grid;place-items:center;position:relative}
+    .orb{width:70%;height:70%;border-radius:50%;background:radial-gradient(circle at 35% 28%,#baf7ff 0,#42caff 10%,#0876b8 34%,#06172c 69%,#02060c 100%);box-shadow:0 0 24px #13baff66,0 0 80px #008cff30,inset -15px -20px 35px #02050c;animation:pulse 4s ease-in-out infinite}
+    .orb:before{content:"";position:absolute;inset:7%;border-radius:50%;border:1px solid #47cfff33;box-shadow:0 0 30px #22bfff1c}
+    @keyframes pulse{0%,100%{transform:scale(.98);filter:brightness(.9)}50%{transform:scale(1.03);filter:brightness(1.2)}}
+    h1{font-size:28px;letter-spacing:.28em;margin:0 0 8px} .subtitle{color:var(--muted);margin:0;line-height:1.5}
+    .primary{border:1px solid #24516c;background:#0d2435;color:#bfeeff;border-radius:14px;padding:13px 22px}
+    .chat{padding:14px 0;gap:12px;min-height:0}.messages{flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:8px 2px 16px}
+    .msg{max-width:88%;padding:13px 15px;border-radius:16px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+    .msg.user{align-self:flex-end;background:#102b40;border:1px solid #1c4966}
+    .msg.jarvis{align-self:flex-start;background:#0b121b;border:1px solid #182b3b}
+    .msg.system{align-self:center;background:transparent;color:var(--muted);font-size:13px;text-align:center}
+    .composer{display:flex;gap:8px;align-items:flex-end;background:#09121b;border:1px solid #1a2c3c;border-radius:16px;padding:8px}
+    textarea{flex:1;resize:none;max-height:140px;min-height:42px;background:transparent;color:var(--text);border:0;outline:0;padding:10px}
+    .send{height:42px;width:44px;border:0;border-radius:12px;background:#0f6e9d;color:white;font-size:20px}
+    .send:disabled{opacity:.45}.hint{font-size:12px;color:var(--muted);text-align:center}
+    footer{padding:14px 0 18px;text-align:center;color:#526779;font-size:11px}
+  </style>
 </head>
-
 <body>
 <div class="app">
-
-<header>
-<div class="brand">
-<div class="logo">✦</div>
-<div>
-<h1>JARVIS ULTIMATE</h1>
-<div class="sub">PERSONAL AI ASSISTANT</div>
+  <header><div class="brand">JARVIS <span style="color:var(--blue)">ULTIMATE</span></div><div class="status" id="status">● Система готова</div></header>
+  <nav class="tabs">
+    <button class="tab active" data-view="home">Главный экран</button>
+    <button class="tab" data-view="chat">Текстовый чат</button>
+  </nav>
+  <section class="view active home" id="home">
+    <div class="orb-wrap"><div class="orb"></div></div>
+    <div><h1>JARVIS</h1><p class="subtitle">Я вас слушаю.<br>Какое будет поручение?</p></div>
+    <button class="primary" id="openChat">Открыть текстовый чат</button>
+    <p class="hint">Голосовой режим будет подключён отдельным этапом.</p>
+  </section>
+  <section class="view chat" id="chat">
+    <div class="messages" id="messages">
+      <div class="msg jarvis">Здравствуйте. Я JARVIS ULTIMATE. Напишите, чем могу помочь.</div>
+    </div>
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="Напишите сообщение JARVIS…"></textarea>
+      <button class="send" id="send" aria-label="Отправить">↑</button>
+    </div>
+    <div class="hint">Enter — отправить · Shift+Enter — новая строка</div>
+  </section>
+  <footer>JARVIS ULTIMATE · Prototype v0.1</footer>
 </div>
-</div>
-<div class="status">● CORE ACTIVE</div>
-</header>
-
-<nav>
-<button class="active" data-view="home">Главная</button>
-<button data-view="chat">Чат</button>
-<button data-view="tasks">Задачи</button>
-<button data-view="planner">План</button>
-<button data-view="history">История</button>
-<button data-view="settings">Настройки</button>
-</nav>
-
-<section class="view active" id="home">
-<div class="hero">
-<div class="orb"></div>
-<h2 id="greeting">Добрый вечер.</h2>
-<p>Я готов принять ваше поручение.</p>
-</div>
-
-<div class="panel">
-<div class="title">НОВОЕ ПОРУЧЕНИЕ</div>
-<textarea id="command" placeholder="Напиши свою команду JARVIS..."></textarea>
-<div class="row">
-<button id="mic">🎙</button>
-<button class="primary" id="send">Отправить</button>
-<button id="clear">Очистить</button>
-</div>
-<div class="meta">Локальный режим. Для настоящего AI потребуется подключить сервер.</div>
-</div>
-
-<div class="panel">
-<div class="title">БЫСТРЫЕ КОМАНДЫ</div>
-<div class="quick">
-<button data-command="Составь план моего дня">◷<small>План дня</small></button>
-<button data-command="Создай список задач">☑<small>Список задач</small></button>
-<button data-command="Подготовь сообщение">✉<small>Сообщение</small></button>
-<button data-command="Объясни Trading AI">⌕<small>Trading AI</small></button>
-</div>
-</div>
-
-<div class="panel">
-<div class="title">ПОСЛЕДНИЕ СООБЩЕНИЯ</div>
-<div class="bubbles" id="homeChat"></div>
-</div>
-</section>
-
-<section class="view" id="chat">
-<div class="panel">
-<div class="title">ЧАТ JARVIS</div>
-<div class="bubbles" id="chatLog"></div>
-<textarea id="chatInput" placeholder="Напиши сообщение..." style="margin-top:10px"></textarea>
-<div class="row">
-<button id="chatMic">🎙</button>
-<button class="primary" id="chatSend">Отправить</button>
-<button id="clearChat">Очистить чат</button>
-</div>
-</div>
-</section>
-
-<section class="view" id="tasks">
-<div class="panel">
-<div class="title">УПРАВЛЕНИЕ ЗАДАЧАМИ</div>
-<input id="taskTitle" placeholder="Название задачи">
-<div class="row">
-<input type="date" id="taskDate">
-<select id="priority">
-<option>Обычный</option>
-<option>Высокий</option>
-<option>Низкий</option>
-</select>
-</div>
-<div class="row">
-<button class="primary" id="addTask">+ Добавить задачу</button>
-</div>
-<div id="taskList"></div>
-</div>
-</section>
-
-<section class="view" id="planner">
-<div class="panel">
-<div class="title">ПЛАНИРОВАНИЕ</div>
-<textarea id="planText" placeholder="Запиши план дня или недели..."></textarea>
-<button class="primary" id="savePlan" style="margin-top:10px">Сохранить план</button>
-</div>
-<div class="panel">
-<div class="title">ТЕКУЩИЙ ПЛАН</div>
-<div id="savedPlan" class="meta">План не создан</div>
-</div>
-</section>
-
-<section class="view" id="history">
-<div class="panel">
-<div class="title">ЖУРНАЛ ДЕЙСТВИЙ</div>
-<div id="historyList"></div>
-<button id="clearHistory">Очистить журнал</button>
-<button id="exportData">Экспорт данных</button>
-</div>
-</section>
-
-<section class="view" id="settings">
-<div class="panel">
-<div class="title">НАСТРОЙКИ</div>
-<input id="userName" placeholder="Имя пользователя">
-<button class="primary" id="saveSettings" style="margin-top:10px">Сохранить</button>
-</div>
-<div class="panel">
-<div class="title">СОСТОЯНИЕ СИСТЕМЫ</div>
-<div class="meta">
-Frontend: активен<br>
-Локальное хранилище: активно<br>
-AI API: не подключён<br>
-Trading AI: будущий модуль<br>
-Внешние действия: не подключены
-</div>
-</div>
-</section>
-
-<footer>JARVIS ULTIMATE · CORE</footer>
-</div>
-
-<div class="toast" id="toast"></div>
-
 <script>
-const $=id=>document.getElementById(id);
-const KEY="jarvis_ultimate_v1";
+  // Адрес backend. После развёртывания сервера замените URL на свой.
+  const API_URL = "https://YOUR-BACKEND-DOMAIN/api/chat";
+  const tabs = document.querySelectorAll(".tab");
+  const views = document.querySelectorAll(".view");
+  const messages = document.getElementById("messages");
+  const input = document.getElementById("input");
+  const send = document.getElementById("send");
+  const statusEl = document.getElementById("status");
+  const history = [];
 
-let data;
-try{
-data=JSON.parse(localStorage.getItem(KEY))||{
-messages:[{role:"jarvis",text:"JARVIS запущен. Готов принять поручение."}],
-tasks:[],history:[],plan:"",user:""
-};
-}catch(e){
-data={messages:[],tasks:[],history:[],plan:"",user:""};
-}
+  function switchView(name){
+    tabs.forEach(t=>t.classList.toggle("active",t.dataset.view===name));
+    views.forEach(v=>v.classList.toggle("active",v.id===name));
+    if(name==="chat") input.focus();
+  }
+  tabs.forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
+  document.getElementById("openChat").addEventListener("click",()=>switchView("chat"));
 
-function save(){
-localStorage.setItem(KEY,JSON.stringify(data));
-}
+  function addMessage(text,role){
+    const el=document.createElement("div");
+    el.className="msg "+role;
+    el.textContent=text;
+    messages.appendChild(el);
+    messages.scrollTop=messages.scrollHeight;
+    return el;
+  }
 
-function toast(text){
-const t=$("toast");
-t.textContent=text;
-t.style.display="block";
-setTimeout(()=>t.style.display="none",2500);
-}
-
-function log(text){
-data.history.unshift({
-text,
-time:new Date().toLocaleString("ru-RU")
-});
-data.history=data.history.slice(0,100);
-save();
-renderHistory();
-}
-
-function addMessage(text,role="jarvis"){
-data.messages.push({text,role});
-data.messages=data.messages.slice(-100);
-save();
-renderChat();
-}
-
-function answer(text){
-let t=text.toLowerCase();
-
-if(t.includes("план")||t.includes("день"))
-return "Давай составим план. Открой раздел «План» и запиши свои задачи. Автоматическое AI-планирование подключим отдельно.";
-
-if(t.includes("зада"))
-return "Открой раздел «Задачи». Там можно создавать, редактировать, удалять и отмечать выполненные задачи.";
-
-if(t.includes("сообщ"))
-return "Я могу подготовить текст сообщения. Отправка людям будет доступна только после твоего одобрения и подключения сервиса.";
-
-if(t.includes("trading")||t.includes("торгов")||t.includes("forex"))
-return "Trading AI будет отдельным модулем для Forex, анализа сигналов и интеграции TradingView и Telegram. Сейчас он не подключён.";
-
-return "Команда принята и сохранена. Сейчас работает локальный режим. Для полноценного AI необходимо подключить защищённый сервер.";
-}
-
-function command(text){
-text=text.trim();
-if(!text)return toast("Введите команду");
-
-addMessage(text,"user");
-addMessage(answer(text),"jarvis");
-log("Команда: "+text);
-$("command").value="";
-$("chatInput").value="";
-}
-
-function renderChat(){
-["chatLog","homeChat"].forEach(id=>{
-let el=$(id);
-el.innerHTML="";
-data.messages.slice(-15).forEach(m=>{
-let b=document.createElement("div");
-b.className="bubble "+m.role;
-b.textContent=m.text;
-el.appendChild(b);
-});
-});
-}
-
-function renderTasks(){
-let el=$("taskList");
-el.innerHTML="";
-if(!data.tasks.length){
-el.innerHTML='<div class="meta">Задач пока нет</div>';
-return;
-}
-data.tasks.forEach(t=>{
-let item=document.createElement("div");
-item.className="item";
-let title=document.createElement("div");
-title.textContent=(t.done?"✓ ":"")+t.title;
-let meta=document.createElement("div");
-meta.className="meta";
-meta.textContent=(t.priority||"Обычный")+" · "+(t.date||"Без срока");
-let actions=document.createElement("div");
-actions.className="actions";
-
-let done=document.createElement("button");
-done.textContent=t.done?"Возобновить":"Выполнено";
-done.onclick=()=>{
-t.done=!t.done;
-save();renderTasks();log("Изменён статус задачи: "+t.title);
-};
-
-let edit=document.createElement("button");
-edit.textContent="Изменить";
-edit.onclick=()=>{
-let v=prompt("Название задачи",t.title);
-if(v&&v.trim()){t.title=v.trim();save();renderTasks();log("Изменена задача");}
-};
-
-let del=document.createElement("button");
-del.textContent="Удалить";
-del.onclick=()=>{
-if(confirm("Удалить задачу?")){
-data.tasks=data.tasks.filter(x=>x.id!==t.id);
-save();renderTasks();log("Удалена задача: "+t.title);
-}
-};
-actions.append(done,edit,del);
-item.append(title,meta,actions);
-el.appendChild(item);
-});
-}
-
-function renderHistory(){
-let el=$("historyList");
-el.innerHTML="";
-data.history.slice(0,50).forEach(h=>{
-let d=document.createElement("div");
-d.className="item";
-d.textContent=h.text;
-let m=document.createElement("div");
-m.className="meta";
-m.textContent=h.time;
-d.appendChild(m);
-el.appendChild(d);
-});
-}
-
-document.querySelectorAll("nav button").forEach(b=>{
-b.onclick=()=>{
-document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
-document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
-b.classList.add("active");
-$(b.dataset.view).classList.add("active");
-};
-});
-
-$("send").onclick=()=>command($("command").value);
-$("chatSend").onclick=()=>command($("chatInput").value);
-
-$("command").addEventListener("keydown",e=>{
-if(e.key==="Enter"&&!e.shiftKey){
-e.preventDefault();command($("command").value);
-}
-});
-$("chatInput").addEventListener("keydown",e=>{
-if(e.key==="Enter"&&!e.shiftKey){
-e.preventDefault();command($("chatInput").value);
-}
-});
-
-$("clear").onclick=()=>{$("command").value="";toast("Поле очищено")};
-
-document.querySelectorAll("[data-command]").forEach(b=>{
-b.onclick=()=>{$("command").value=b.dataset.command;$("command").focus()};
-});
-
-$("addTask").onclick=()=>{
-let title=$("taskTitle").value.trim();
-if(!title)return toast("Введите название задачи");
-data.tasks.unshift({
-id:Date.now(),
-title,
-date:$("taskDate").value,
-priority:$("priority").value,
-done:false
-});
-$("taskTitle").value="";
-save();renderTasks();log("Создана задача: "+title);
-toast("Задача добавлена");
-};
-
-$("savePlan").onclick=()=>{
-data.plan=$("planText").value;
-save();
-$("savedPlan").textContent=data.plan||"План не создан";
-log("План сохранён");
-toast("План сохранён");
-};
-
-$("clearChat").onclick=()=>{
-if(confirm("Очистить переписку?")){
-data.messages=[];
-save();renderChat();log("Чат очищен");
-}
-};
-
-$("clearHistory").onclick=()=>{
-if(confirm("Очистить журнал?")){
-data.history=[];save();renderHistory();
-}
-};
-
-$("exportData").onclick=()=>{
-let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-let url=URL.createObjectURL(blob);
-let a=document.createElement("a");
-a.href=url;a.download="jarvis-data.json";a.click();
-URL.revokeObjectURL(url);
-};
-
-$("saveSettings").onclick=()=>{
-data.user=$("userName").value;
-save();toast("Настройки сохранены");
-};
-
-const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;
-
-function voice(target){
-if(!Speech)return toast("Голосовой ввод не поддерживается");
-try{
-let r=new Speech();
-r.lang="ru-RU";
-r.onresult=e=>target.value=e.results[0][0].transcript;
-r.onerror=()=>toast("Ошибка микрофона");
-r.start();
-toast("Слушаю...");
-}catch(e){toast("Не удалось запустить микрофон")}
-}
-
-$("mic").onclick=()=>voice($("command"));
-$("chatMic").onclick=()=>voice($("chatInput"));
-
-let h=new Date().getHours();
-$("greeting").textContent=h<12?"Доброе утро.":h<18?"Добрый день.":"Добрый вечер.";
-
-$("userName").value=data.user||"";
-$("planText").value=data.plan||"";
-$("savedPlan").textContent=data.plan||"План не создан";
-
-renderChat();
-renderTasks();
-renderHistory();
+  async function sendMessage(){
+    const text=input.value.trim();
+    if(!text||send.disabled)return;
+    input.value="";
+    input.style.height="42px";
+    addMessage(text,"user");
+    history.push({role:"user",content:text});
+    send.disabled=true;
+    statusEl.textContent="● JARVIS думает…";
+    const thinking=addMessage("Обрабатываю запрос…","system");
+    try{
+      if(API_URL.includes("YOUR-BACKEND-DOMAIN")){
+        throw new Error("Backend ещё не подключён. Нужно развернуть сервер и указать его URL в index.html.");
+      }
+      const response=await fetch(API_URL,{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({messages:history})
+      });
+      if(!response.ok) throw new Error("Ошибка сервера: "+response.status);
+      const data=await response.json();
+      const answer=data.reply||data.message||data.content;
+      if(!answer)throw new Error("Сервер вернул пустой ответ.");
+      thinking.remove();
+      addMessage(answer,"jarvis");
+      history.push({role:"assistant",content:answer});
+      statusEl.textContent="● JARVIS готов";
+    }catch(err){
+      thinking.remove();
+      addMessage("Не удалось получить ответ: "+err.message,"system");
+      statusEl.textContent="● Нет соединения";
+    }finally{send.disabled=false;input.focus();}
+  }
+  send.addEventListener("click",sendMessage);
+  input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage();}});
+  input.addEventListener("input",()=>{input.style.height="42px";input.style.height=Math.min(input.scrollHeight,140)+"px";});
 </script>
 </body>
 </html>
